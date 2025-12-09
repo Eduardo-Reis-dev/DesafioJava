@@ -28,7 +28,7 @@ public class AirportDataLoader {
     CommandLineRunner loadAirportData() {
         return args -> {
             if (repository.count() > 0) {
-                return; // já tem dados
+                return; 
             }
 
             try (BufferedReader br = new BufferedReader(
@@ -38,22 +38,10 @@ public class AirportDataLoader {
                 boolean first = true;
                 while ((line = br.readLine()) != null) {
                     if (first) {
-                        first = false; // pula cabeçalho
+                        first = false; 
                         continue;
                     }
-                    String[] cols = line.split(";", -1); // ajuste o separador se necessário
-
-                    // *** ATENÇÃO ***
-                    // Ajuste os índices conforme o layout real do CSV:
-                    // Exemplo didático:
-                    // 0: id
-                    // 1: nome
-                    // 2: cidade
-                    // 3: pais (nome)
-                    // 4: codigo_iata
-                    // 5: latitude
-                    // 6: longitude
-                    // 7: altitude (em pés)
+                    String[] cols = line.split(";", -1); 
 
                     if (cols.length < 8) continue;
 
@@ -70,11 +58,11 @@ public class AirportDataLoader {
                     String iso = DomainUtils.obterIsoPais(paisNome);
 
                     if (iata == null || iata.isBlank() || iata.length() != 3) {
-                        continue; // ignora registros sem IATA válido
+                        continue; 
                     }
 
                     Aeroporto aeroporto = Aeroporto.builder()
-                            .idAeroporto(id) // usa o id do arquivo
+                            .idAeroporto(id)
                             .nomeAeroporto(nome)
                             .codigoIata(iata.toUpperCase())
                             .cidade(cidade)
